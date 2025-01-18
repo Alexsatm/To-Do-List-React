@@ -1,0 +1,112 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.app {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+h1 {
+  color: #17767a;
+  font-size: 40px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+span {
+  font-size: 21px;
+}
+
+input {
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 8px;
+  border: 1px solid #d9d9d9;
+}
+
+input[type=checkbox] {
+  width: 20px;
+  height: 20px;
+}
+
+button {
+  background-color: rgba(255, 255, 255, 0.861);
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 5px;
+  cursor: pointer;
+  border: 0;
+  outline: 0;
+  color: black;
+  font-size: 18px;
+  padding: 12px;
+  margin-left: 5px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.todo {
+  display: flex;
+  background-color: aliceblue;
+  flex-direction: column;
+  align-items: center;
+  max-width: 380px;
+  border-radius: 16px;
+  padding: 20px;
+  row-gap: 10px;
+  margin: 20px;
+}
+
+.addBtn {
+  background-color: green;
+  color: white;
+}
+
+.addBtn:active {
+  transform: scale(0.98);
+}
+
+.btns {
+  margin-top: 10px;
+}
+
+/* .btns button:nth-child(1) {
+  background-color: #15a6d7;
+}
+
+.btns button:nth-child(2) {
+  background-color: #72bf22;
+}
+
+.btns button:nth-child(3) {
+   background-color: #ff300b;
+} */
+
+.active-filter {
+  background-color:#ff8f13;
+  color: white;
+  /* background-color: #1793a8; */
+}
+
+.error {
+  border: 1px solid red;
+}
+
+.error-message {
+  color: red
+}
+
+.is-done {
+  opacity: 0.5;
+}
