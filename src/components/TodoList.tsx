@@ -1,5 +1,7 @@
-import { ChangeEvent, useState, KeyboardEvent } from 'react';
+import { ChangeEvent} from 'react';
 import { FilterValuesType } from '../App';
+
+import { AddItemForm } from './AddItemForm'
 
 export type TaskType = {
   id: string;
@@ -25,13 +27,17 @@ export function TodoList(props: PropsType) {
     props.removeTodoList(props.id)
   }
 
+  const addTask = (title:string) => {
+    props.addTask(title, props.id)
+  }
+
   // -------------------------------
   return (
     <div className="todo">
       <h1>{props.title}
         <button onClick={removeTodoList}>✖️</button>
       </h1>
-      <AddItemForm id={props.id} addTask={props.addTask}/>
+      <AddItemForm addItem={addTask}/>
       {/* ---------------------------- */}
       <ul>
         {props.tasks.map((item) => {
@@ -62,51 +68,4 @@ export function TodoList(props: PropsType) {
       </div>
     </div>
   );
-}
-
-type AddItemPropsType = {
-  id: string;
-  addTask: (value: string, todolistId: string) => void;
-
-}
-
-function AddItemForm(props: AddItemPropsType) {
-  const [value, setValue] = useState('');
-  const [error, setError] = useState<string | null>(null); //хранить в себе либо строку либо null
-
-  const changeValue = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.currentTarget.value);
-  };
-
-  const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    setError(null)
-    if (e.charCode === 13) {
-      props.addTask(value, props.id);
-      setValue('');
-    }
-  };
-
-  const addTaskHandler = () => {
-    if(value.trim() === '') { //пустую строку нельзя добавлять
-      return setError('Неправильный ввод')
-    }
-    props.addTask(value.trim(), props.id);
-    setValue('');
-  };
-
-  return (
-    <div>
-        <input
-          type="text"
-          value={value}
-          onChange={changeValue}
-          onKeyPress={onKeyPressHandler}
-          className={error ? "error" : ""}
-        />
-        <button className="addBtn" onClick={addTaskHandler}>
-          Добавить
-        </button>
-        {error && <div className='error-message'>{error}</div>}
-      </div>
-  )
 }

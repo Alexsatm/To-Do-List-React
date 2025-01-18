@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import './App.css';
 import { TodoList } from './components/TodoList';
+import { AddItemForm } from './components/AddItemForm'
 
 export type FilterValuesType = 'all' | 'completed' | 'active';
 
@@ -58,8 +59,8 @@ export default function App() {
   const todolistid2 = v1();
 
   const [todoLists, setTodoLists] = useState<Array<TodoListType>>([
-    { id: todolistid1, title: 'Что вы хотите изучить', filter: 'active' },
-    { id: todolistid2, title: 'Что вы хотите купить', filter: 'completed' },
+    { id: todolistid1, title: 'Что вы хотите изучить', filter: 'all' },
+    { id: todolistid2, title: 'Что вы хотите купить', filter: 'all' },
   ]);
 
   const removeTodoList = (todolistId: string) => {
@@ -88,9 +89,23 @@ export default function App() {
     ]
   })
 
+  function addTodoList(title:string) {
+    const todolist: TodoListType = {
+      id:v1(),
+      filter: 'all',
+      title: title
+    };
+
+    setTodoLists([todolist, ...todoLists])
+    setItemsObj({
+      ...itemsObj,
+      [todolist.id]:[]
+    })
+  }
+
   return (
     <div className="app">
-      <input type="text" /> <button>Добавить</button>
+      <AddItemForm addItem={addTodoList}/>
       {/* вызовится столько раз, сколько у нас объектов todoList*/}
       {todoLists.map((tl) => {
 
