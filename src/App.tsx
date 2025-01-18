@@ -3,7 +3,7 @@ import { v1 } from 'uuid';
 import { useState } from 'react';
 
 import './App.css';
-import { TodoList } from './components/TodoList';
+import { TaskType, TodoList } from './components/TodoList';
 import { AddItemForm } from './components/AddItemForm'
 
 export type FilterValuesType = 'all' | 'completed' | 'active';
@@ -12,6 +12,10 @@ type TodoListType = {
   id: string;
   title: string;
   filter: FilterValuesType;
+}
+
+type TasksStateType = {
+  [key:string]:Array<TaskType>
 }
 
 export default function App() {
@@ -46,6 +50,18 @@ export default function App() {
     }
   };
 
+  const changeTaskTitle = (taskId: string, newTitle:string, todolistId: string) => {
+    const items = itemsObj[todolistId]
+    // должна вернуть true
+    const task = items.find((t) => t.id === taskId); // и записаться в переменную task
+    //если id той таски по которой мы пробегаемся, равна той айди которую нужно поменять
+    if (task) {
+      // если таска сущ
+      task.title = newTitle;
+      setItemsObj({...itemsObj});
+    }
+  };
+
   //чтобы легко найти нужный todoList по id и поменять значение фильтра
   const changeFilter = (value: FilterValuesType, todolistId: string) => {
     const todolist = todoLists.find(tl => tl.id === todolistId);
@@ -72,7 +88,7 @@ export default function App() {
   }
 
 
-  const [itemsObj, setItemsObj] = useState({
+  const [itemsObj, setItemsObj] = useState<TasksStateType>({
     [todolistid1]: [
       { id: v1(), title: 'Html', isDone: true },
       { id: v1(), title: 'Css', isDone: true },
@@ -128,7 +144,8 @@ export default function App() {
             deleteClick={removeTask}
             changeFilter={changeFilter}
             addTask={addTask}
-            changeStatus={changeStatus}
+            changeTaskStatus={changeStatus}
+            changeTaskTitle={changeTaskTitle}
             filter={tl.filter}
             removeTodoList={removeTodoList}
           />
