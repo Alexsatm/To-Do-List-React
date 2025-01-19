@@ -1,6 +1,5 @@
 import { ChangeEvent} from 'react';
 import { FilterValuesType } from '../App';
-
 import { AddItemForm } from './AddItemForm'
 import { EditTableSpan } from './EditableSpan';
 
@@ -20,7 +19,8 @@ type PropsType = {
   changeTaskStatus: (id: string, isDone: boolean, todolistId: string) => void;
   changeTaskTitle: (id: string, newTitle:string, todolistId: string) => void;
   filter: FilterValuesType;
-  removeTodoList: (todolistId: string) => void;
+  removeTodoList: (id: string) => void;
+  changeTodoListTitle: (id: string, newTitle: string) => void
 };
 
 export function TodoList(props: PropsType) {
@@ -33,10 +33,14 @@ export function TodoList(props: PropsType) {
     props.addTask(title, props.id)
   }
 
+  const changeTodoListTitle = (newTitle:string) => {
+    props.changeTodoListTitle(props.id, newTitle)
+  }
+
   // -------------------------------
   return (
     <div className="todo">
-      <h1>{props.title}
+      <h1><EditTableSpan title={props.title} onChange={changeTodoListTitle}/>
         <button onClick={removeTodoList}>✖️</button>
       </h1>
       <AddItemForm addItem={addTask}/>

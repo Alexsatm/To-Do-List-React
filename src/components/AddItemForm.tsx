@@ -1,9 +1,10 @@
 import { ChangeEvent, useState, KeyboardEvent } from 'react';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 type AddItemPropsType = {
   addItem: (value: string) => void;
-
-}
+};
 
 export function AddItemForm(props: AddItemPropsType) {
   const [value, setValue] = useState('');
@@ -14,7 +15,7 @@ export function AddItemForm(props: AddItemPropsType) {
   };
 
   const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    setError(null)
+    setError(null);
     if (e.charCode === 13) {
       props.addItem(value);
       setValue('');
@@ -22,8 +23,9 @@ export function AddItemForm(props: AddItemPropsType) {
   };
 
   const addTaskHandler = () => {
-    if(value.trim() === '') { //пустую строку нельзя добавлять
-      return setError('Неправильный ввод')
+    if (value.trim() === '') {
+      //пустую строку нельзя добавлять
+      return setError('Неправильный ввод');
     }
     props.addItem(value.trim());
     setValue('');
@@ -31,17 +33,23 @@ export function AddItemForm(props: AddItemPropsType) {
 
   return (
     <div>
-        <input
-          type="text"
-          value={value}
-          onChange={changeValue}
-          onKeyPress={onKeyPressHandler}
-          className={error ? "error" : ""}
-        />
-        <button className="addBtn" onClick={addTaskHandler}>
+      <TextField
+        id="outlined-basic"
+        label="Введите"
+        variant="outlined"
+        value={value}
+        size="small"
+        onChange={changeValue}
+        onKeyPress={onKeyPressHandler}
+        className={error ? 'error' : ''}
+      />
+      {/* <button className="addBtn" onClick={addTaskHandler}>
           Добавить
-        </button>
-        {error && <div className='error-message'>{error}</div>}
-      </div>
-  )
+        </button> */}
+      <Button variant="contained" color="success" onClick={addTaskHandler}>
+        Добавить
+      </Button>
+      {error && <div className="error-message">{error}</div>}
+    </div>
+  );
 }

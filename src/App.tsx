@@ -87,6 +87,14 @@ export default function App() {
     setItemsObj({...itemsObj})
   }
 
+  const changeTodoListTitle = (id: string, newTitle:string) => {
+    const todolist = todoLists.find(tl => tl.id === id);
+    if(todolist) {
+      todolist.title = newTitle;
+      setTodoLists([...todoLists])
+    }
+  }
+
 
   const [itemsObj, setItemsObj] = useState<TasksStateType>({
     [todolistid1]: [
@@ -148,6 +156,7 @@ export default function App() {
             changeTaskTitle={changeTaskTitle}
             filter={tl.filter}
             removeTodoList={removeTodoList}
+            changeTodoListTitle={changeTodoListTitle}
           />
         );
       })}
