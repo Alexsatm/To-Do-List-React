@@ -1,3 +1,4 @@
+import { TextField } from "@mui/material";
 import { useState } from "react"
 import { ChangeEvent} from 'react';
 
@@ -22,7 +23,7 @@ export function EditTableSpan(props:EditTableSpanProps) {
 
   return (
     editMode
-      ? <input onChange={onChangeTitleHandler} onBlur={activateViewMode} type="text" value={title} autoFocus />
+      ? <TextField onChange={onChangeTitleHandler} onBlur={activateViewMode} type="text" value={title} autoFocus variant="standard" size="small"/>
       : <span onDoubleClick={activateEditMode} >{props.title}</span>
   )
 }

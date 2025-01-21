@@ -25,7 +25,7 @@ export function AddItemForm(props: AddItemPropsType) {
   const addTaskHandler = () => {
     if (value.trim() === '') {
       //пустую строку нельзя добавлять
-      return setError('Неправильный ввод');
+      return ('Неправильный ввод');
     }
     props.addItem(value.trim());
     setValue('');
@@ -34,22 +34,18 @@ export function AddItemForm(props: AddItemPropsType) {
   return (
     <div>
       <TextField
-        id="outlined-basic"
         label="Введите"
         variant="outlined"
         value={value}
         size="small"
         onChange={changeValue}
         onKeyPress={onKeyPressHandler}
-        className={error ? 'error' : ''}
+        error={!!error}
+        helperText={error}
       />
-      {/* <button className="addBtn" onClick={addTaskHandler}>
-          Добавить
-        </button> */}
-      <Button variant="contained" color="success" onClick={addTaskHandler}>
+      <Button onClick={addTaskHandler} variant="contained" color="success" >
         Добавить
       </Button>
-      {error && <div className="error-message">{error}</div>}
     </div>
   );
 }
