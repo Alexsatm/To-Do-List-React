@@ -15,8 +15,10 @@ export function AddItemForm(props: AddItemPropsType) {
   };
 
   const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    setError(null);
-    if (e.charCode === 13) {
+    if(error !== null) {
+      setError(null);
+    }
+    if (e.key === 'Enter') {
       props.addItem(value);
       setValue('');
     }
@@ -39,7 +41,7 @@ export function AddItemForm(props: AddItemPropsType) {
         value={value}
         size="small"
         onChange={changeValue}
-        onKeyPress={onKeyPressHandler}
+        onKeyDown={onKeyPressHandler}
         error={!!error}
         helperText={error}
       />
